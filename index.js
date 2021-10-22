@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 app.use(cors());
+app.use(express.json());
 const port = 5000;
 
 app.get("/", (req, res) => {
@@ -45,6 +46,15 @@ const users = [
         phone: "01788888888",
     },
 ];
+
+// get data from client side and update the  users array
+
+app.post("/users", (req, res) => {
+    const newUsers = req.body;
+    newUsers.id = users.length;
+    users.push(newUsers);
+    res.json(newUsers);
+});
 
 // daynamic api
 app.get("/users/:id", (req, res) => {
